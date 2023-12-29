@@ -2,9 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider, Text } from 'native-base';
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
-import { SignIn } from './src/screens/SignIn';
-import { SignUp } from './src/screens/SignUp';
-import { Home } from './src/screens/Home';
+import { Routes } from './src/routes';
 
 
 export default function App() {
@@ -18,7 +16,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Home /> : <Text></Text>}
+      {fontsLoaded ? <Routes /> : <Text></Text>}
     </NativeBaseProvider>
   );
 }

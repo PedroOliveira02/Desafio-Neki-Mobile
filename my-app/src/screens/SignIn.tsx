@@ -2,7 +2,22 @@ import { Heading, VStack, Image, View, Text, theme } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigateRoutesProps } from "../routes/app.routes";
+
+
 export function SignIn() {
+
+  const navigation = useNavigation<AppNavigateRoutesProps>();
+
+  function handleLogin() {
+    navigation.navigate('home');
+  }
+
+  function handleCadastro() {
+    navigation.navigate('signUp');
+  }
+
   return (
     <View flex={1} bg="emerald.900" justifyContent="center">
 
@@ -19,9 +34,10 @@ export function SignIn() {
         <Input placeholder="Email" />
         <Input placeholder="Senha"  />
         <Button
+          onPress={handleLogin}
           title="Login"
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleCadastro}>
           <Text>Cadastre-se</Text>
         </TouchableOpacity>
       </VStack>

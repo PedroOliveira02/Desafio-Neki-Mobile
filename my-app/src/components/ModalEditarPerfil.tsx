@@ -13,7 +13,7 @@ interface ModalCadastro extends IModalProps {
 const INPUT_HEIGHT = 9;
 const INPUT_MARGIN_BOTTOM = 2;
 
-export function ModalNovoPerfil({ modal, setModal, ...rest}: ModalCadastro ) {
+export function ModalEditarPerfil({ modal, setModal, ...rest}: ModalCadastro ) {
   return (
     
       
@@ -54,6 +54,7 @@ export function ModalNovoPerfil({ modal, setModal, ...rest}: ModalCadastro ) {
           borderColor="emerald.900"
           h={INPUT_HEIGHT}
           mb={INPUT_MARGIN_BOTTOM}
+          placeholder="NomeSocial"
         />
         <HeadingCard 
           title="Email*"
@@ -130,6 +131,7 @@ export function ModalNovoPerfil({ modal, setModal, ...rest}: ModalCadastro ) {
           my={2}
         />
         <Button 
+          onPress={() => setModal(false)}
           title="Voltar"
           mt={2}
         />

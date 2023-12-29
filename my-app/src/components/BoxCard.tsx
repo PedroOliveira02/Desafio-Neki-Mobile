@@ -3,6 +3,8 @@ import { HeadingCard } from "./HeadingCard";
 import { TextCard } from "./TextCard";
 import { Linking, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useState } from "react";
+import { ModalEditarPerfil } from "./ModalEditarPerfil";
 
 const handleLinkedIn = () => {
   Linking.openURL('https://www.linkedin.com/in/pedro-oliveira02/')
@@ -19,12 +21,21 @@ const handleInstagram = () => {
 const handleFacebook = () => {
   Linking.openURL('https://www.linkedin.com/in/pedro-oliveira02/')
 }
+
+
 export function BoxCard() {
+
+  const [ editarPerfilModalVisible, setEditarPerfilModalVisible ] = useState(false)
+
+  const handleEditarPerfil = () => {
+    setEditarPerfilModalVisible(true);
+  }
+
   return (
     <ScrollView>
     <VStack ml="8" mr="8" pb="5" px="7" pt="6" bg="emerald.100" space={2} rounded="xl" alignItems="center" style={theme.shadows[9]}>
         <HStack justifyContent="space-around" w="72">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleEditarPerfil}>
           <Icon 
             ml={-5}
             as={Feather}
@@ -123,6 +134,9 @@ export function BoxCard() {
           </TouchableOpacity>
         </Box>    
     </VStack> 
+    {editarPerfilModalVisible && (
+      <ModalEditarPerfil modal={editarPerfilModalVisible} setModal={setEditarPerfilModalVisible} />
+      )}
     </ScrollView>
   )
 }

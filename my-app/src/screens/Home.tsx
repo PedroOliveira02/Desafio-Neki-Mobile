@@ -6,14 +6,24 @@ import { HeadingCard } from "../components/HeadingCard";
 import { TextCard } from "../components/TextCard";
 import { BoxCard } from "../components/BoxCard";
 import { useState } from "react";
-import { ModalNovoPerfil } from "../components/ModalPerfil";
+import { ModalNovoPerfil } from "../components/ModalNovoPerfil";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigateRoutesProps } from "../routes/app.routes";
+import { ModalEditarPerfil } from "../components/ModalEditarPerfil";
 
 
 export function Home() {
-  const [ modalVisible, setModalVisible ] = useState(false)
+  const [ novoPerfilModalVisible, setNovoPerfilModalVisible ] = useState(false)
+  
+
+  const navigation = useNavigation<AppNavigateRoutesProps>()
+
+  function handleLogout() {
+    navigation.goBack()
+  }
 
   const handleNovoPerfil = () => {
-    setModalVisible(true);
+    setNovoPerfilModalVisible(true);
   }
 
   return ( 
@@ -33,7 +43,7 @@ export function Home() {
             w="40"
             bg="emerald.100"
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleLogout}>
             <Icon
               as={Feather}
               name="log-out"
@@ -50,8 +60,8 @@ export function Home() {
         <BoxCard />
       </HStack>
       </ScrollView>
-      {modalVisible && (
-      <ModalNovoPerfil modal={modalVisible} setModal={setModalVisible} />
+      {novoPerfilModalVisible && (
+      <ModalNovoPerfil modal={novoPerfilModalVisible} setModal={setNovoPerfilModalVisible} />
     )}
     </View>
     
