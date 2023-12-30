@@ -5,25 +5,27 @@ import { Button } from "../components/Button";
 import { HeadingCard } from "../components/HeadingCard";
 import { TextCard } from "../components/TextCard";
 import { BoxCard } from "../components/BoxCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalNovoPerfil } from "../components/ModalNovoPerfil";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigateRoutesProps } from "../routes/app.routes";
 import { ModalEditarPerfil } from "../components/ModalEditarPerfil";
+import { AuthNavigateRoutesProps } from "../routes/auth.routes";
+import { useAuth } from "../hooks/useAuth";
 
 
 export function Home() {
   const [ novoPerfilModalVisible, setNovoPerfilModalVisible ] = useState(false)
-  
-
-  const navigation = useNavigation<AppNavigateRoutesProps>()
+  const { signOut, user } = useAuth()
 
   function handleLogout() {
-    navigation.goBack()
+    signOut()
+    console.log("==========>", user)
   }
 
   const handleNovoPerfil = () => {
     setNovoPerfilModalVisible(true);
+    console.log("==========>", user)
   }
 
   return ( 
