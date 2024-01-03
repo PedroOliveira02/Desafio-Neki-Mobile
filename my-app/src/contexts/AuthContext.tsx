@@ -13,7 +13,6 @@ export type AuthContextDataProps = {
   isLoadingUserStorageData: boolean;
   setIsLoadingUserStorageData: React.Dispatch<React.SetStateAction<boolean>>;
   signIn(email: string, senha: string): Promise<void>
-  SignUp(nome: string, email: string, senha: string): Promise<void>
   signOut(): Promise<void>
 }
 
@@ -43,11 +42,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     recoverUser();
   }, []);
 
-  // async function userAndTokenUpdate(userData: User) {
-  //   api.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
-  //   await AsyncStorage.setItem('userData', JSON.stringify(userData))
-  //   setUser(userData);
-  // }
 
   async function signIn(email: string, senha: string) {
     try {
@@ -60,14 +54,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       setUser({id, token})
       const userObj ={id: idString, token}
       AsyncStorage.setItem("user", JSON.stringify(userObj))
-      // const user = response.data.user;
-      // userAndTokenUpdate(data.user);
-      // if (!user) {
-      //   // Se o usuário não for válido, lança um erro ou faz outra tratativa
-      //   throw new Error('Usuário inválido');
-      // }
-      // setUser(user);
-      
+
       
     } catch (error) {
       throw error
@@ -76,16 +63,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
-  async function SignUp(nome: string, email: string, senha: string) {
-    try {
-      setIsLoadingUserStorageData(true);
-      await api.post('/administradores', {nome, email, senha})
-    } catch (error) {
-      throw error
-    } finally {
-      setIsLoadingUserStorageData(false)
-    }
-  }
 
   async function signOut() {
     try {
@@ -107,7 +84,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     isLoadingUserStorageData,
     setIsLoadingUserStorageData,
     signIn,
-    SignUp,
     signOut
   }
 

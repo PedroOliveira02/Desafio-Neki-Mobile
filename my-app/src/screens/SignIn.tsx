@@ -1,15 +1,10 @@
-import { Heading, VStack, Image, View, Text, theme, useToast } from "native-base";
-import { TouchableOpacity } from "react-native";
+import { Heading, VStack, Image, View, useToast } from "native-base";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
-import { useNavigation } from "@react-navigation/native";
-import { AppNavigateRoutesProps } from "../routes/app.routes";
-import { AuthNavigateRoutesProps } from "../routes/auth.routes";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AppError } from "../utils/AppError";
 import { Controller, useForm } from "react-hook-form";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type FormData = {
   email: string;
@@ -20,7 +15,6 @@ type FormData = {
 export function SignIn() {
   const [isLoading, setIsLoading] = useState(false)
   const toast = useToast();
-  const navigation = useNavigation<AuthNavigateRoutesProps>();
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>()
 
   const { signIn, user } = useAuth();
@@ -30,7 +24,7 @@ export function SignIn() {
       setIsLoading(true);
       await signIn(email, senha);
     } catch (error) {
-      console.log('Erro no login:', error);
+
       const isAppError = error instanceof AppError;
  
       const title =  isAppError ? error.message : 'Não foi possível entrar. Tente novamente mais tarde.'
@@ -42,16 +36,8 @@ export function SignIn() {
       })
       setIsLoading(false);
     } 
-    // finally {
-    //   setIsLoading(false);
-    // }
   }
 
-
-  function handleCadastro() {
-    navigation.navigate('signUp');
-    console.log("==========>", AsyncStorage.getItem('user'))
-  }
 
   return (
     <View flex={1} bg="emerald.900" justifyContent="center">
@@ -91,20 +77,17 @@ export function SignIn() {
               secureTextEntry
               value={value}
               onChangeText={onChange}
+              onSubmitEditing={handleSubmit(handleSignIn)}
+              returnKeyType="send"
               errorMessage={errors.senha?.message}
             />
           )}
         />
-        
-        
         <Button
           title="Login"
           onPress={handleSubmit(handleSignIn)}
           isLoading={isLoading}
         />
-        <TouchableOpacity onPress={handleCadastro}>
-          <Text>Cadastre-se</Text>
-        </TouchableOpacity>
       </VStack>
     </View>
   )

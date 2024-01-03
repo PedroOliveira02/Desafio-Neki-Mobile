@@ -5,9 +5,7 @@ import { Box } from "native-base";
 import { AuthRoutes } from "./auth.routes";
 import { Loading } from "../components/Loading";
 
-
 export function Routes() {
-
   const { isLoadingUserStorageData, user } = useAuth();
 
   if(isLoadingUserStorageData) {
